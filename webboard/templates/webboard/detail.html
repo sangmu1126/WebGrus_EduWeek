@@ -1,0 +1,38 @@
+{% extends 'webboard/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12" style="margin-top:20px;">
+            <h3>{{ item.title }}</h3>
+            <p>
+                {{ item.content }}
+            </p>
+            <p>
+                <a href="{% url 'post-delete' id=item.id %}">
+                    <button class="btn btn-danger">삭제하기</button>
+                </a>
+            </p>
+            <hr/>
+            <p>
+                <a href="{% url 'comment-create' post_id=item.id %}">
+                    <button class="btn btn-info">댓글 쓰기</button>
+                </a>
+            </p>
+            {% for comment in comments %}
+                <div class="card bg-light mb-3">
+                    <a href="{% url 'comment-delete' post_id=item.id comment_id=comment.id %}">
+                        <button type="button" class="close" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </a>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">{{ comment.comment }}</p>
+                  </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

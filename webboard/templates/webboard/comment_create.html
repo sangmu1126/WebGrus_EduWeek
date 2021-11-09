@@ -1,0 +1,13 @@
+{% extends 'webboard/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <form action="{% url 'comment-create' post_id=item.id %}" method="post" style="margin-top:20px;">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <button type="submit">등록</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'webboard/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    {% for item in posts %}
+    <div class="row post-item" style="margin:20px auto;">
+        <div class="col-sm-12">
+            <div class="card border-secondary">
+              <div class="card-body">
+                <h5 class="card-title">{{ item.title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ item.content }}</h6>
+                <a href="{% url 'post-detail' id=item.id %}" class="card-link">자세히 보기</a>
+                <a href="{% url 'post-update' %}?id={{ item.id }}" class="card-link">수정하기</a>
+              </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <div class="pagination">
+                <span class="step-links text-center" style="width:100%;">
+                    {% if posts.has_previous %}
+                        <a href="?page=1">&laquo;</a>
+                        <a href="?page={{ posts.previous_page_number }}">{{ posts.previous_page_number }}</a>
+                    {% endif %}
+
+                    <span class="current">
+                        {{ posts.number }}
+                    </span>
+
+                    {% if posts.has_next %}
+                        <a href="?page={{ posts.next_page_number }}">{{ posts.next_page_number }}</a>
+                        <a href="?page={{ posts.paginator.num_pages }}">&raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
